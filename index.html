@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Carousel</title>
+  <style>
+    .carousel {
+      position: relative;
+      width: 300px;
+      overflow: hidden;
+      margin: 20px auto;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s ease-in-out;
+    }
+    .carousel-track img {
+      min-width: 100%;
+      height: auto;
+    }
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #fff;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 5px 10px;
+      z-index: 10;
+    }
+    .prev { left: 0; }
+    .next { right: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="carousel">
+    <button class="prev" onclick="moveCarousel(-1)">&#10094;</button>
+    <div class="carousel-track" id="carouselTrack">
+      <img src="Pizza.jpg" alt="Slide 1">
+      <img src="Poke.jpg" alt="Slide 2">
+      <img src="Chicke_salad.jpg" alt="Slide 3">
+    </div>
+    <button class="next" onclick="moveCarousel(1)">&#10095;</button>
+  </div>
+
+  <script>
+    let index = 0;
+    const track = document.getElementById('carouselTrack');
+    const slides = document.querySelectorAll('.carousel-track img');
+    const totalSlides = slides.length;
+
+    function moveCarousel(direction) {
+      index += direction;
+      if (index < 0) index = totalSlides - 1;
+      if (index >= totalSlides) index = 0;
+      updateCarousel();
+    }
+
+    function updateCarousel() {
+      track.style.transform = 'translateX(' + (-index * 300) + 'px)';
+    }
+
+    // Auto slide every 3 seconds
+    setInterval(() => {
+      moveCarousel(1);
+    }, 3000);
+  </script>
+
+</body>
+</html>
